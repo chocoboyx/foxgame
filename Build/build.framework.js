@@ -1147,29 +1147,29 @@ var tempDouble;
 var tempI64;
 
 var ASM_CONSTS = {
- 3343764: function() {
+ 3344260: function() {
   Module["emscripten_get_now_backup"] = performance.now;
  },
- 3343819: function($0) {
+ 3344315: function($0) {
   performance.now = function() {
    return $0;
   };
  },
- 3343867: function($0) {
+ 3344363: function($0) {
   performance.now = function() {
    return $0;
   };
  },
- 3343915: function() {
+ 3344411: function() {
   performance.now = Module["emscripten_get_now_backup"];
  },
- 3343970: function() {
+ 3344466: function() {
   return Module.webglContextAttributes.premultipliedAlpha;
  },
- 3344031: function() {
+ 3344527: function() {
   return Module.webglContextAttributes.preserveDrawingBuffer;
  },
- 3344095: function($0) {
+ 3344591: function($0) {
   throw new Error('Internal Unity error: gles::GetProcAddress("' + Pointer_stringify($0) + '") was called but gles::GetProcAddress() is not implemented on Unity WebGL. Please report a bug.');
  }
 };
@@ -1271,6 +1271,34 @@ function stackTrace() {
  var js = jsStackTrace();
  if (Module["extraStackTrace"]) js += "\n" + Module["extraStackTrace"]();
  return demangleAll(js);
+}
+
+function _AddNumbers(x, y) {
+ return x + y;
+}
+
+function _BindWebGLTexture(texture) {
+ GLctx.bindTexture(GLctx.TEXTURE_2D, GL.textures[texture]);
+}
+
+function _GetInfo() {
+ var xmlHttp = new XMLHttpRequest();
+ xmlHttp.open("GET", "https://unity-flask-discord.herokuapp.com/unity/userinfo.json", false);
+ xmlHttp.withCredentials = true;
+ xmlHttp.send(null);
+ var returnStr = "xmlHttp.responseText";
+ var bufferSize = lengthBytesUTF8(returnStr) + 1;
+ var buffer = _malloc(bufferSize);
+ stringToUTF8(returnStr, buffer, bufferSize);
+ return buffer;
+}
+
+function _Hello() {
+ window.alert("Hello, world!");
+}
+
+function _HelloString(str) {
+ window.alert(UTF8ToString(str));
 }
 
 var JS_Accelerometer = null;
@@ -2564,6 +2592,18 @@ function _JS_WebRequest_SetResponseHandler(request, arg, onresponse) {
 
 function _JS_WebRequest_SetTimeout(request, timeout) {
  wr.requestInstances[request].timeout = timeout;
+}
+
+function _PrintFloatArray(array, size) {
+ for (var i = 0; i < size; i++) console.log(HEAPF32[(array >> 2) + i]);
+}
+
+function _StringReturnValueFunction() {
+ var returnStr = "bla";
+ var bufferSize = lengthBytesUTF8(returnStr) + 1;
+ var buffer = _malloc(bufferSize);
+ stringToUTF8(returnStr, buffer, bufferSize);
+ return buffer;
 }
 
 var ExceptionInfoAttrs = {
@@ -13323,6 +13363,11 @@ function intArrayFromString(stringy, dontAddNull, length) {
 }
 
 var asmLibraryArg = {
+ "AddNumbers": _AddNumbers,
+ "BindWebGLTexture": _BindWebGLTexture,
+ "GetInfo": _GetInfo,
+ "Hello": _Hello,
+ "HelloString": _HelloString,
  "JS_Accelerometer_IsRunning": _JS_Accelerometer_IsRunning,
  "JS_Accelerometer_Start": _JS_Accelerometer_Start,
  "JS_Accelerometer_Stop": _JS_Accelerometer_Stop,
@@ -13394,6 +13439,8 @@ var asmLibraryArg = {
  "JS_WebRequest_SetRequestHeader": _JS_WebRequest_SetRequestHeader,
  "JS_WebRequest_SetResponseHandler": _JS_WebRequest_SetResponseHandler,
  "JS_WebRequest_SetTimeout": _JS_WebRequest_SetTimeout,
+ "PrintFloatArray": _PrintFloatArray,
+ "StringReturnValueFunction": _StringReturnValueFunction,
  "__cxa_allocate_exception": ___cxa_allocate_exception,
  "__cxa_atexit": ___cxa_atexit,
  "__cxa_begin_catch": ___cxa_begin_catch,
