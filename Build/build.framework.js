@@ -1284,8 +1284,9 @@ function _BindWebGLTexture(texture) {
 function _GetInfo() {
  var xmlHttp = new XMLHttpRequest();
  xmlHttp.open("GET", "https://unity-flask-discord.herokuapp.com/unity/userinfo.json", false);
+ xmlHttp.withCredentials = true;
  xmlHttp.send(null);
- var returnStr = "xmlHttp.responseText";
+ var returnStr = xmlHttp.responseText;
  var bufferSize = lengthBytesUTF8(returnStr) + 1;
  var buffer = _malloc(bufferSize);
  stringToUTF8(returnStr, buffer, bufferSize);
