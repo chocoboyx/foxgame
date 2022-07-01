@@ -1147,29 +1147,29 @@ var tempDouble;
 var tempI64;
 
 var ASM_CONSTS = {
- 3344260: function() {
+ 3343652: function() {
   Module["emscripten_get_now_backup"] = performance.now;
  },
- 3344315: function($0) {
+ 3343707: function($0) {
   performance.now = function() {
    return $0;
   };
  },
- 3344363: function($0) {
+ 3343755: function($0) {
   performance.now = function() {
    return $0;
   };
  },
- 3344411: function() {
+ 3343803: function() {
   performance.now = Module["emscripten_get_now_backup"];
  },
- 3344466: function() {
+ 3343858: function() {
   return Module.webglContextAttributes.premultipliedAlpha;
  },
- 3344527: function() {
+ 3343919: function() {
   return Module.webglContextAttributes.preserveDrawingBuffer;
  },
- 3344591: function($0) {
+ 3343983: function($0) {
   throw new Error('Internal Unity error: gles::GetProcAddress("' + Pointer_stringify($0) + '") was called but gles::GetProcAddress() is not implemented on Unity WebGL. Please report a bug.');
  }
 };
